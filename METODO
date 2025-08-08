@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de IMC - Mounjaro de Pobre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4fff6;
+      color: #2e7d32;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background: #ffffffcc;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    img.logo {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #a5d6a7;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 12px;
+      width: 100%;
+      background-color: #66bb6a;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #resultadoIMC {
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://cakto-quiz-br01.b-cdn.net/uploads/5bd14710-059b-4f24-b0f1-a77831d8aac0.png" alt="Logo Mounjaro de Pobre" class="logo">
+
+    <h2>Descubra seu IMC e receba uma recomendação exclusiva!</h2>
+
+    <label for="altura">Altura (em metros):</label>
+    <input type="number" id="altura" step="0.01" placeholder="Ex: 1.65">
+
+    <label for="peso">Peso (em kg):</label>
+    <input type="number" id="peso" step="0.1" placeholder="Ex: 70">
+
+    <button onclick="calcularIMC()">Calcular IMC</button>
+
+    <div id="resultadoIMC"></div>
+  </div>
+
+  <script>
+    function calcularIMC() {
+      const altura = parseFloat(document.getElementById('altura').value);
+      const peso = parseFloat(document.getElementById('peso').value);
+      const resultado = document.getElementById('resultadoIMC');
+
+      if (!altura || !peso) {
+        resultado.innerHTML = 'Por favor, preencha todos os campos.';
+        return;
+      }
+
+      const imc = peso / (altura * altura);
+      const imcFormatado = imc.toFixed(1);
+      let classificacao = "";
+      let mensagem = "";
+
+      if (imc < 18.5) {
+        classificacao = "Abaixo do peso";
+        mensagem = `
+          Seu IMC é <strong>${imcFormatado}</strong> — <strong>${classificacao}</strong>.<br>
+          👉 Nosso método <strong>Método MDP</strong> também ajuda quem quer ganhar massa magra de forma saudável.<br>
+          <a href="https://cutt.ly/xomounjaro" target="_blank" style="color: #1b5e20;">Clique aqui e descubra as receitas naturais para ganhar peso com saúde.</a>
+        `;
+      } else if (imc < 24.9) {
+        classificacao = "Peso ideal";
+        mensagem = `
+          Seu IMC é <strong>${imcFormatado}</strong> — <strong>${classificacao}</strong>.<br>
+          👏 Parabéns! Agora é hora de manter esse corpo e acelerar o metabolismo com o <strong>Método MDP</strong>.<br>
+          <a href="https://cutt.ly/xomounjaro" target="_blank" style="color: #2e7d32;">Veja como continuar seco(a) e saudável com nossas receitas naturais.</a>
+        `;
+      } else if (imc < 29.9) {
+        classificacao = "Sobrepeso";
+        mensagem = `
+          Seu IMC é <strong>${imcFormatado}</strong> — <strong>${classificacao}</strong>.<br>
+          🚨 Atenção! Você está acima do peso ideal.<br>
+          Mas calma! Com o <strong>Método MDP</strong>, você pode perder peso sem gastar com remédio caro.<br>
+          <a href="https://cutt.ly/xomounjaro" target="_blank" style="color: #c62828;">Clique aqui e comece hoje sua transformação com receitas naturais e baratas.</a>
+        `;
+      } else if (imc < 34.9) {
+        classificacao = "Obesidade grau 1";
+        mensagem = `
+          Seu IMC é <strong>${imcFormatado}</strong> — <strong>${classificacao}</strong>.<br>
+          😟 Isso já é um sinal de risco para a sua saúde. Mas a boa notícia é que você pode virar esse jogo!<br>
+          <a href="https://cutt.ly/xomounjaro" target="_blank" style="color: #c62828;"><strong>Método MDP</strong> vai te mostrar o caminho natural para emagrecer com segurança.</a>
+        `;
+      } else if (imc < 39.9) {
+        classificacao = "Obesidade grau 2";
+        mensagem = `
+          Seu IMC é <strong>${imcFormatado}</strong> — <strong>${classificacao}</strong>.<br>
+          ⚠️ Você precisa agir agora. Seu corpo está pedindo socorro!<br>
+          <a href="https://cutt.ly/xomounjaro" target="_blank" style="color: #b71c1c;">Clique aqui e conheça o <strong>Método MDP</strong>: um plano simples, natural e de baixo custo para começar a emagrecer hoje.</a>
+        `;
+      } else {
+        classificacao  = "Obesidade grau 3 (grave)";
+        mensagem = `
+          Seu IMC é <strong>${imcFormatado}</strong> — <strong>${classificacao}</strong>.<br>
+          🚨 Isso é muito sério. Você está em uma zona crítica.<br>
+          Mas calma, ainda dá tempo!<br>
+          <a href="https://cutt.ly/xomounjaro" target="_blank" style="color: #d50000;"><strong>Método MDP</strong> é a alternativa acessível que pode mudar sua vida.</a><br>
+          🌿 Sem remédios caros. Só ingredientes naturais e estratégias reais.
+        `;
+      }
+
+      resultado.innerHTML = mensagem;
+    }
+  </script>
+
+</body>
+</html>
